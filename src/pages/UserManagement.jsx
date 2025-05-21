@@ -78,6 +78,8 @@ const UserManagement = () => {
     }
   }, [allFirmsUsers]);
 
+  console.log(allFirmsUsers)
+
   // 🔹 Apply Search
   useEffect(() => {
     let result = usersData;
@@ -120,13 +122,26 @@ const UserManagement = () => {
     setUserAccsess(userAccsessModal);
   };
 
+  const excludedFields = ['id', 'assign_role', 'created_at', 'updated_at', 'suspend_status', 's.no.'];
+
   const columns =
     usersData && usersData.length
-      ? Object.keys(usersData[0]).map((key) => ({
+      ? (() => {
+        const keys = Object.keys(usersData[0])
+          .filter((key) => !excludedFields.includes(key));
+
+        // Move 'serial_no' to the beginning if it exists
+        const reorderedKeys = keys.includes('serial_no')
+          ? ['serial_no', ...keys.filter((k) => k !== 'serial_no')]
+          : keys;
+
+        return reorderedKeys.map((key) => ({
           id: key,
           displayName: key,
-        }))
+        }));
+      })()
       : [];
+
 
   const addUser = () => {
     setSelectedUserToEdit("");
@@ -140,7 +155,7 @@ const UserManagement = () => {
         <main>
           <div className="dashboard-wrap">
             <div className="influ-strip-2">
-              <form>
+              {/* <form>  */}
                 <div className="influ-search">
                   <label htmlFor="">
                     <input
@@ -165,7 +180,7 @@ const UserManagement = () => {
                       ranges={dateRange}
                       onChange={(item) => setDateRange(item)}
                       placeholder="Sign Up Date Range"
-                      className="no-border-picker"
+                      className="no-border-picker "
                     />
                   </label>
 
@@ -195,14 +210,14 @@ const UserManagement = () => {
                     Add user
                   </button>
                 </div>
-              </form>
+              {/* </form> */}
             </div>
             <div className="page-table">
               <div className="table-responsive">
                 <table>
                   <thead>
                     <tr>
-                      <th>S.No.</th>
+                      <th onClick={() => handleSort('serial_no')} style={{ cursor: "pointer" }}>S.No. {getSortArrow("serial_no")}</th>
                       <th
                         onClick={() => handleSort("name")}
                         style={{ cursor: "pointer" }}
@@ -236,19 +251,19 @@ const UserManagement = () => {
                     {paginatedData.length > 0 ? (
                       paginatedData.map((tableData, index) => (
                         <tr key={tableData?.id}>
-                          <td>{String(index + 1).padStart(2, "0")}</td>
+                          <td>{tableData.serial_no}</td>
                           <td>{tableData?.name}</td>
                           <td>{tableData?.email}</td>
                           <td>{tableData?.phone}</td>
                           <td>{formatDate(tableData?.sign_up_date)}</td>
                           <td>
                             {tableData?.subscription_type?.toLowerCase() ==
-                            "basic"
+                              "basic"
                               ? "Basic"
                               : tableData?.subscription_type?.toLowerCase() ==
                                 "premium"
-                              ? "Premium"
-                              : ""}
+                                ? "Premium"
+                                : ""}
                           </td>
 
                           <td>

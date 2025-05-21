@@ -26,7 +26,7 @@ const LogoutModal = () => {
                         <p>Are you sure you want to logout?</p>
                         <div className="all-commonbtns-popup">
                             <a style={{cursor:"pointer", color:"white"}} onClick={handleLogout} data-bs-dismiss="modal" aria-label="Close">Yes</a>
-                            <a style={{cursor:"pointer", color:"white"}}  data-bs-dismiss="modal" aria-label="Close">cancel</a>
+                            <a style={{cursor:"pointer", color:"white"}}  data-bs-dismiss="modal" aria-label="Close">Cancel</a>
                         </div>
                     </form>
                 </div>
