@@ -1,0 +1,18 @@
+SUPER ADMIN UPDATES
+
+A. Frontend
+
+1.	index.html - done
+2.	src\hooks\useDateRangeFilter.js - done
+3.	src\utils\dateRangeFilter.js - done
+4.	src\pages\UserManagement.jsx - done
+5.	src\component\DesignerDateRangePicker.jsx - done
+6.	public\images\filter-icons\date.svg - done
+7.	src\component\PaginationControls.jsx - done
+8.	src\redux\slices\adminSlice.js - done
+
+
+B. Backend
+
+1.	src\model\superAdmin\manageFirmModel.js - done
+2.	src\controller\superAdmin\manageFirmController.js - done
